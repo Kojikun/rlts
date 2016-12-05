@@ -1,0 +1,13 @@
+<!--General layout used in all pages-->
+
+<!doctype html>
+<title>Rocket League Trading System</title>
+
+<div class="page">
+	<h1>Rocket League Trading System</h1>
+	{% if session.logged_in %}
+		<a href="{{ url_for('logout') }}">Log Out</a>
+	{% endif %}
+
+	{% block body %}{% endblock %}
+</div>

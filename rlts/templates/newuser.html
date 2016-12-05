@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block body %}
+	<h2>New User</h2>
+	<p>Please create an account below.</p>
+	{% if error %}
+	<p class="error">Error: {{ error }}
+	{% endif %}
+	<form action="{{ url_for('new_user') }}" method="post">
+		Username:<br>
+		<input type="text" name="username"><br>
+		Platform:<br>
+		<select name="platform">
+			<option value="PC">PC/Steam</option>
+			<option value="PS4">Playstation 4</option>
+			<option value="XB1">XBox One</option>
+		</select><br>
+		Password:<br>
+		<input type="password" name="password"><br>
+		Confirm Password:<br>
+		<input type="password" name="cpassword"><br>
+		<input type="submit" value="Sign Up">
+	</form>
+{% endblock %}

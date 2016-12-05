@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block body %}
+	<h3>{{ uName }}</h3>
+	{% if wantEntries %}
+	<h4>Items They Want</h4>
+	<table>
+		<tr>
+			<th>Item Name</th>
+			<th>Type</th>
+			<th>Quality</th>
+			<th>Collection</th>
+			<th>Painted</th>
+			<th>Certified</th>
+		</tr>
+		{% for entry in wantEntries %}
+		<tr>
+			<td>{{ entry.INAME }}</td>
+			<td>{{ entry.ITYPE }}</td>
+			<td>{{ entry.IQUALITY }}</td>
+			<td>{{ entry.ICOLLECTION }}</td>
+			<td>{{ entry.IPAINTED }}</td>
+			<td>{{ entry.ICERTIFIED }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% endif %}
+	{% if hasEntries %}
+	<h4>Items They Have</h4>
+	<table>
+		<tr>
+			<th>Item Name</th>
+			<th>Type</th>
+			<th>Quality</th>
+			<th>Collection</th>
+			<th>Painted</th>
+			<th>Certified</th>
+		</tr>
+		{% for entry in hasEntries %}
+		<tr>
+			<td>{{ entry.INAME }}</td>
+			<td>{{ entry.ITYPE }}</td>
+			<td>{{ entry.IQUALITY }}</td>
+			<td>{{ entry.ICOLLECTION }}</td>
+			<td>{{ entry.IPAINTED }}</td>
+			<td>{{ entry.ICERTIFIED }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% endif %}
+{% endblock %}

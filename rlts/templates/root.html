@@ -1,0 +1,142 @@
+{% extends "layout.html" %}
+{% block body %}
+	<h2>Welcome, {{ session.username }}.</h2>
+	<h3>Item Search</h3>
+	<p>Search for any item in the game.<br>
+	From there, you can specify if you want or have the item.</p>
+	{% if error %}
+	<p class="error">Error: {{ error }}</p>
+	{% endif %}
+	<form action="{{ url_for('search') }}" method="post">
+		Name:<br>
+		<input type="text" name="itemname"><br>
+		Type:<br>
+		<select name="type">
+			<option value="Any">Any</option>
+			<option value="Body">Body</option>
+			<option value="Wheels">Wheels</option>
+			<option value="Boost">Boost</option>
+			<option value="Antenna">Antenna</option>
+			<option value="Decal">Decal</option>
+			<option value="Topper">Topper</option>
+		</select><br>
+		Quality:<br>
+		<select name="quality">
+			<option value="Any">Any</option>
+			<option value="Uncommon">Uncommon</option>
+			<option value="Rare">Rare</option>
+			<option value="Very Rare">Very Rare</option>
+			<option value="Import">Import</option>
+			<option value="Exotic">Exotic</option>
+			<option value="Black Market">Black Market</option>
+			<option value="Limited">Limited</option>
+		</select><br>
+		Collection:<br>
+		<select name="collection">
+			<option value="Any">Any</option>
+			<option value="None">None</option>
+			<option value="Champions Crate 1">Champions Crate 1</option>
+			<option value="Champions Crate 2">Champions Crate 2</option>
+			<option value="Champions Crate 3">Champions Crate 3</option>
+		</select><br>
+		Painted:<br>
+		<select name="painted">
+			<option value="Any">Any</option>
+			<option value="None">None</option>
+			<option value="Black">Black</option>
+			<option value="Burnt Sienna">Burnt Sienna</option>
+			<option value="Cobalt">Cobalt</option>
+			<option value="Crimson">Crimson</option>
+			<option value="Forest Green">Forest Green</option>
+			<option value="Grey">Grey</option>
+			<option value="Lime">Lime</option>
+			<option value="Orange">Orange</option>
+			<option value="Pink">Pink</option>
+			<option value="Purple">Purple</option>
+			<option value="Saffron">Saffron</option>
+			<option value="Sky-Blue">Sky-Blue</option>
+			<option value="Titanium White">Titanium White</option>
+		</select><br>
+		Certified:<br>
+		<select name="certified">
+			<option value="Any">Any</option>
+			<option value="None">None</option>
+			<option value="Acrobat">Acrobat</option>
+			<option value="Aviator">Aviator</option>
+			<option value="Goalkeeper">Goalkeeper</option>
+			<option value="Guardian">Guardian</option>
+			<option value="Juggler">Juggler</option>
+			<option value="Paragon">Paragon</option>
+			<option value="Playmaker">Playmaker</option>
+			<option value="Scorer">Scorer</option>
+			<option value="Show-Off">Show-Off</option>
+			<option value="Sniper">Sniper</option>
+			<option value="Striker">Striker</option>
+			<option value="Sweeper">Sweeper</option>
+			<option value="Tactician">Tactician</option>
+			<option value="Turtle">Turtle</option>
+			<option value="Victor">Victor</option>
+		</select><br>
+		<input type="submit" value="Search">
+	</form>
+	<h3>Trade Partner Search</h3>
+	<p>Based off of what you want and what you have, the system will find trade partners that are the most compatible with you!<br>
+	The system will order them from most to least compatible.</p>
+	<form action="{{ url_for('find') }}", method="get">
+		<input type="submit" value="Find Trading Partners!">
+	</form>
+	{% if wantEntries %}
+	<h4>Items You Want</h4>
+	<table>
+		<tr>
+			<th>Item Name</th>
+			<th>Type</th>
+			<th>Quality</th>
+			<th>Collection</th>
+			<th>Painted</th>
+			<th>Certified</th>
+			<th>Remove?</th>
+		</tr>
+		{% for entry in wantEntries %}
+		<tr>
+			<td>{{ entry.INAME }}</td>
+			<td>{{ entry.ITYPE }}</td>
+			<td>{{ entry.IQUALITY }}</td>
+			<td>{{ entry.ICOLLECTION }}</td>
+			<td>{{ entry.IPAINTED }}</td>
+			<td>{{ entry.ICERTIFIED }}</td>
+			<form action="{{ url_for('remove_want', wantID = entry.WID) }}", method="get">
+				<td><input type="submit" value="Remove"></td>
+			</form>
+		</tr>
+		{% endfor %}
+	</table>
+	{% endif %}
+	{% if hasEntries %}
+	<h4>Items You Have</h4>
+	<table>
+		<tr>
+			<th>Item Name</th>
+			<th>Type</th>
+			<th>Quality</th>
+			<th>Collection</th>
+			<th>Painted</th>
+			<th>Certified</th>
+			<th>Remove?</th>
+		</tr>
+		{% for entry in hasEntries %}
+		<tr>
+			<td>{{ entry.INAME }}</td>
+			<td>{{ entry.ITYPE }}</td>
+			<td>{{ entry.IQUALITY }}</td>
+			<td>{{ entry.ICOLLECTION }}</td>
+			<td>{{ entry.IPAINTED }}</td>
+			<td>{{ entry.ICERTIFIED }}</td>
+			<form action="{{ url_for('remove_has', hasID = entry.HID) }}", method="get">
+				<td><input type="submit" value="Remove"></td>
+			</form>
+		</tr>
+		{% endfor %}
+	</table>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block body %}
+	<h2>Search results</h2>
+	<table>
+		<tr>
+			<th>Want</th>
+			<th>Have</th>
+			<th>Item Name</th>
+			<th>Type</th>
+			<th>Quality</th>
+			<th>Collection</th>
+			<th>Painted</th>
+			<th>Certified</th>
+		</tr>
+		{% for entry in entries %}
+		<tr>
+			<form action="{{ url_for('item_want', itemID = entry.iID) }}", method="get">
+				<td><input type="submit" value="Want"></td>
+			</form>
+			<form action="{{ url_for('item_have', itemID = entry.iID) }}", method="get">
+				<td><input type="submit" value="Have"></td>
+			</form>
+			<td>{{ entry.name }}</td>
+			<td>{{ entry.type }}</td>
+			<td>{{ entry.quality }}</td>
+			<td>{{ entry.collection }}</td>
+			<td>{{ entry.painted }}</td>
+			<td>{{ entry.certified }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+{% endblock %}
